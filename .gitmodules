@@ -1,3 +1,6 @@
 [submodule "odgi"]
 	path = odgi
 	url = https://github.com/pangenome/odgi
+[submodule "jemalloc"]
+	path = jemalloc
+	url = https://github.com/jemalloc/jemalloc
