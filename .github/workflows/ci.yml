@@ -17,7 +17,7 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
       - if: matrix.os == 'ubuntu'
-        run: sudo apt-get update -yq && sudo apt upgrade -yq && sudo apt-get install libjemalloc-dev
+        run: sudo apt-get update -yq && sudo apt upgrade -yq && sudo apt-get upgrade # libjemalloc-dev
       - if: matrix.os == 'macos'
         run: brew update && brew install jemalloc
       - if: matrix.os == 'ubuntu'

@@ -21,6 +21,8 @@ bundle exec rake install
 
 ## Development
 
+- [jemalloc 5.0.1 TLS error: cannot allocate memory in static TLS block](https://github.com/jemalloc/jemalloc/issues/1237)
+
 ## License
 
 - [MIT License](https://opensource.org/licenses/MIT)

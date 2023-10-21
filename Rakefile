@@ -15,23 +15,24 @@ Rake::ExtensionTask.new("odgi") do |ext|
   ext.lib_dir = "lib/odgi"
 end
 
+namespace :jemalloc do
+  desc "Building jemalloc"
+  task :build do
+    Dir.chdir("jemalloc") do
+      sh "./autogen.sh"
+      sh "./configure --disable-initial-exec-tls"
+      sh "make -j #{Etc.nprocessors}"
+    end
+  end
+end
+
 namespace :odgi do
   desc "Building odgi"
   task :build do
+    jemalloc_lib_dir = File.expand_path("jemalloc/lib", __dir__)
     Dir.chdir("odgi") do
-      sh "cmake -H. -Bbuild"
+      sh "cmake -H. -Bbuild -DJEMALLOC_LIBRARY=#{jemalloc_lib_dir}"
       sh "cmake --build build -- -j #{Etc.nprocessors}"
-      sh "mkdir -p ../vendor"
-      if File.exist?("lib/libodgi.a")
-        sh "cp lib/libodgi.a ../vendor"
-      elsif File.exist?("build/libodgi.so")
-        sh "cp lib/libodgi.so ../vendor"
-      elsif File.exist?("build/libodgi.dylib")
-        sh "cp lib/libodgi.dylib ../vendor"
-      else
-        sh "ls -l lib"
-        warn "libodgi.a or libodgi.so or libodgi.dylib not found"
-      end
     end
   end
 end
