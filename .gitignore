@@ -14,6 +14,3 @@
 *.lock
 mkmf.log
 
-/ext/odgi/*.cpp
-/ext/odgi/*.h
-
