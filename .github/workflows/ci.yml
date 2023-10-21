@@ -1,0 +1,23 @@
+name: test
+on: [push, pull_request]
+jobs:
+  build:
+    name: ${{ matrix.os }} Ruby ${{ matrix.ruby }}
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      matrix:
+        os: ["ubuntu", "macos"]
+        ruby: ["3.2"]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - uses: r-lib/actions/setup-r@v2
+      - if: matrix.os == 'ubuntu'
+        run: sudo apt-get update -yq && sudo apt-get upgrade -yq
+      - if: matrix.os == 'macos'
+        run: brew update && brew upgrade
+      - run: bundle exec rake compile
+      - run: bundle exec rake test
