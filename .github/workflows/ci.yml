@@ -21,7 +21,7 @@ jobs:
       - if: matrix.os == 'macos'
         run: brew update && brew install jemalloc
       - if: matrix.os == 'ubuntu'
-        run: bundle exec rake odgi:build
+        run: bundle exec rake jemalloc:build && bundle exec rake odgi:build
       - if: matrix.os == 'macos'
         run: CC=/opt/homebrew/opt/llvm/bin/clang CXX=/opt/homebrew/opt/llvm/bin/clang++ LDFLAGS=-L/opt/homebrew/lib bundle exec rake odgi:build
       - run: bundle exec rake compile
