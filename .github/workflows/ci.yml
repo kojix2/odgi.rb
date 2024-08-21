@@ -7,9 +7,9 @@ jobs:
     strategy:
       matrix:
         os: ["ubuntu"]
-        ruby: ["3.2"]
+        ruby: ["3.3"]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
       - uses: ruby/setup-ruby@v1
