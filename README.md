@@ -1,6 +1,6 @@
-# odgi.rb
+# ruby-odgi
 
-[![test](https://github.com/kojix2/odgi.rb/actions/workflows/ci.yml/badge.svg)](https://github.com/kojix2/odgi.rb/actions/workflows/ci.yml)
+[![test](https://github.com/kojix2/ruby-odgi/actions/workflows/ci.yml/badge.svg)](https://github.com/kojix2/ruby-odgi/actions/workflows/ci.yml)
 
 :dna: [odgi](https://github.com/pangenome/odgi) - Optimized Dynamic Genome/Graph Implementation - for Ruby
 
@@ -9,8 +9,8 @@
 ## Installation
 
 ```sh
-git clone --recursive https://github.com/kojix2/odgi.rb # submodules
-cd odgi.rb
+git clone --recursive https://github.com/kojix2/ruby-odgi # submodules
+cd ruby-odgi
 bundle install
 bundle exec rake jemalloc:build # with the option --disable-initial-exec-tls
 bundle exec rake odgi:build     # Build odgi using the jemalloc library compiled above

@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary = 'ALGLIB for Ruby'
   spec.description = 'ALGLIB wrapper for Ruby'
-  spec.homepage = 'https://github.com/kojix2/odgi.rb'
+  spec.homepage = 'https://github.com/kojix2/ruby-odgi'
   spec.license = 'MIT'
 
   spec.files = Dir['{ext,vendor}/**/*', 'lib/**/*.rb', 'LICENSE.txt', 'README.md']
