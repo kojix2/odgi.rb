@@ -4,7 +4,7 @@ require_relative 'lib/odgi/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'odgi'
-  spec.version = Odgi::VERSION
+  spec.version = ODGI::VERSION
   spec.authors = ['kojix2']
   spec.email = ['2xijok@gmail.com']
 
