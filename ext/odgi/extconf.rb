@@ -34,10 +34,6 @@ end
   find_header 'dynamic.hpp', dir
 end
 
-(ODGI_DIR / 'src').tap do |dir|
-  find_header 'atomic_bitvector.hpp', dir
-end
-
 (ODGI_DIR / 'deps/sparsepp/sparsepp').tap do |dir|
   find_header 'spp.h', dir
 end

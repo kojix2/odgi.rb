@@ -5,6 +5,7 @@ jobs:
     name: ${{ matrix.os }} Ruby ${{ matrix.ruby }}
     runs-on: ${{ matrix.os }}-latest
     strategy:
+      fail-fast: false
       matrix:
         os: ["ubuntu", "macos"]
         ruby: ["3.3"]
@@ -16,8 +17,6 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-      - if: matrix.os == 'ubuntu'
-        run: sudo apt-get update -yq && sudo apt upgrade -yq # && sudo apt-get upgrade libjemalloc-dev
       - if: matrix.os == 'macos'
         run: brew update && brew install llvm libomp autoconf #jemalloc
       - if: matrix.os == 'ubuntu'
@@ -25,6 +24,12 @@ jobs:
       - if: matrix.os == 'macos'
         run: |
           CC=$(brew --prefix llvm)/bin/clang CXX=$(brew --prefix llvm)/bin/clang++ LDFLAGS=-L/opt/homebrew/lib bundle exec rake jemalloc:build
-          CC=$(brew --prefix llvm)/bin/clang CXX=$(brew --prefix llvm)/bin/clang++ LDFLAGS=-L/opt/homebrew/lib bundle exec rake jemalloc:build
+          CC=$(brew --prefix llvm)/bin/clang CXX=$(brew --prefix llvm)/bin/clang++ LDFLAGS=-L/opt/homebrew/lib bundle exec rake odgi:build
       - run: bundle exec rake compile
+      - if: matrix.os == 'macos'
+        run: |
+          otool -L lib/odgi/odgi.bundle
+          otool -L odgi/lib/libodgi.dylib
+          install_name_tool -change "@rpath/libodgi.dylib" $(pwd)/odgi/lib/libodgi.dylib lib/odgi/odgi.bundle # FIXME: this is a hack
+          otool -L lib/odgi/odgi.bundle
       - run: bundle exec rake test
