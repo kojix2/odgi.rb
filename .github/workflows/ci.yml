@@ -6,7 +6,7 @@ jobs:
     runs-on: ${{ matrix.os }}-latest
     strategy:
       matrix:
-        os: ["ubuntu"]
+        os: ["ubuntu", "macos"]
         ruby: ["3.3"]
     steps:
       - uses: actions/checkout@v4
@@ -17,12 +17,14 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
       - if: matrix.os == 'ubuntu'
-        run: sudo apt-get update -yq && sudo apt upgrade -yq && sudo apt-get upgrade # libjemalloc-dev
+        run: sudo apt-get update -yq && sudo apt upgrade -yq # && sudo apt-get upgrade libjemalloc-dev
       - if: matrix.os == 'macos'
-        run: brew update && brew install jemalloc
+        run: brew update && brew install llvm libomp autoconf #jemalloc
       - if: matrix.os == 'ubuntu'
         run: bundle exec rake jemalloc:build && bundle exec rake odgi:build
       - if: matrix.os == 'macos'
-        run: CC=/opt/homebrew/opt/llvm/bin/clang CXX=/opt/homebrew/opt/llvm/bin/clang++ LDFLAGS=-L/opt/homebrew/lib bundle exec rake odgi:build
+        run: |
+          CC=$(brew --prefix llvm)/bin/clang CXX=$(brew --prefix llvm)/bin/clang++ LDFLAGS=-L/opt/homebrew/lib bundle exec rake jemalloc:build
+          CC=$(brew --prefix llvm)/bin/clang CXX=$(brew --prefix llvm)/bin/clang++ LDFLAGS=-L/opt/homebrew/lib bundle exec rake jemalloc:build
       - run: bundle exec rake compile
       - run: bundle exec rake test

@@ -1,4 +1,4 @@
-require_relative "test_helper"
+require_relative 'test_helper'
 
 class OdgiTest < Minitest::Test
   def test_that_it_has_a_version_number
@@ -10,9 +10,9 @@ class OdgiTest < Minitest::Test
   end
 
   def test_odgi_load_graph
-    graph =  ODGI::FFI.odgi_load_graph(
-      File.join(File.dirname(__dir__), "odgi", "test", "DRB1-3123_sorted.og")
-      )
+    graph = ODGI::FFI.odgi_load_graph(
+      File.join(File.dirname(__dir__), 'odgi', 'test', 'DRB1-3123_sorted.og')
+    )
     assert_kind_of ODGI::FFI::Graph, graph
   end
 end

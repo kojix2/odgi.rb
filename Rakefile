@@ -1,36 +1,36 @@
-require "bundler/gem_tasks"
-require "rake/testtask"
+require 'bundler/gem_tasks'
+require 'rake/testtask'
 
 Rake::TestTask.new(:test) do |t|
-  t.libs << "test"
-  t.libs << "lib"
-  t.test_files = FileList["test/**/*_test.rb"]
+  t.libs << 'test'
+  t.libs << 'lib'
+  t.test_files = FileList['test/**/*_test.rb']
 end
 
-require "rake/extensiontask"
+require 'rake/extensiontask'
 
 task build: :compile
 
-Rake::ExtensionTask.new("odgi") do |ext|
-  ext.lib_dir = "lib/odgi"
+Rake::ExtensionTask.new('odgi') do |ext|
+  ext.lib_dir = 'lib/odgi'
 end
 
 namespace :jemalloc do
-  desc "Building jemalloc"
+  desc 'Building jemalloc'
   task :build do
-    Dir.chdir("jemalloc") do
-      sh "./autogen.sh"
-      sh "./configure --disable-initial-exec-tls"
+    Dir.chdir('jemalloc') do
+      sh './autogen.sh'
+      sh './configure --disable-initial-exec-tls'
       sh "make -j #{Etc.nprocessors}"
     end
   end
 end
 
 namespace :odgi do
-  desc "Building odgi"
+  desc 'Building odgi'
   task :build do
-    jemalloc_lib_dir = File.expand_path("jemalloc/lib", __dir__)
-    Dir.chdir("odgi") do
+    jemalloc_lib_dir = File.expand_path('jemalloc/lib', __dir__)
+    Dir.chdir('odgi') do
       sh "cmake -H. -Bbuild -DJEMALLOC_LIBRARY=#{jemalloc_lib_dir}"
       sh "cmake --build build -- -j #{Etc.nprocessors}"
     end
