@@ -2,19 +2,21 @@
 #include <rice/stl.hpp>
 #include "odgi-api.h"
 
+#include "version.hpp"
+
 using namespace Rice;
 
 extern "C" void Init_odgi()
 {
   Module rb_mODGI = define_module("ODGI");
-  Module rb_cFFI = define_module_under(rb_mODGI, "FFI");
-  Class rb_cGraph = define_class_under<graph_t>(rb_cFFI, "Graph");
-  Class rb_cHandle = define_class_under<handle_t>(rb_cFFI, "Handle");
-  Class rb_cPathHandle = define_class_under<path_handle_t>(rb_cFFI, "PathHandle");
-  Class rb_cStepHandle = define_class_under<step_handle_t>(rb_cFFI, "StepHandle");
-  Class rb_cEdgeHandle = define_class_under<edge_t>(rb_cFFI, "EdgeHandle");
+  Module rb_mFFI = define_module_under(rb_mODGI, "FFI");
+  Class rb_cGraph = define_class_under<graph_t>(rb_mFFI, "Graph");
+  Class rb_cHandle = define_class_under<handle_t>(rb_mFFI, "Handle");
+  Class rb_cPathHandle = define_class_under<path_handle_t>(rb_mFFI, "PathHandle");
+  Class rb_cStepHandle = define_class_under<step_handle_t>(rb_mFFI, "StepHandle");
+  Class rb_cEdgeHandle = define_class_under<edge_t>(rb_mFFI, "EdgeHandle");
 
-  rb_cFFI
+  rb_mFFI
       .define_singleton_function("odgi_version", &odgi_version)
       .define_singleton_function("odgi_long_long_size", &odgi_long_long_size)
       .define_singleton_function("odgi_handle_i_size", &odgi_handle_i_size)
@@ -63,4 +65,12 @@ extern "C" void Init_odgi()
       // .define_singleton_function("odgi_for_each_step_in_path", &odgi_for_each_step_in_path)
       // .define_singleton_function("odgi_for_each_step_on_handle", &odgi_for_each_step_on_handle)
       .define_singleton_function("odgi_get_path_name", &odgi_get_path_name);
+
+  // version.hpp
+  Module rb_mVersion = define_module_under(rb_mFFI, "Version");
+  rb_mVersion
+      .define_singleton_function("get_version", &odgi::Version::get_version)
+      .define_singleton_function("get_release", &odgi::Version::get_release)
+      .define_singleton_function("get_codename", &odgi::Version::get_codename)
+      .define_singleton_function("get_short", &odgi::Version::get_short);
 }
