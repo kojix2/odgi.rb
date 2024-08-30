@@ -110,11 +110,11 @@ extern "C" void Init_odgi()
                           .define_method("get_node_rank", &odgi::graph_t::get_node_rank);
 
     Module rb_mFFI = define_module_under(rb_mODGI, "FFI");
-    Class rb_cFFIGraph = define_class_under<graph_t>(rb_mFFI, "Graph");
-    Class rb_cFFIHandle = define_class_under<handle_t>(rb_mFFI, "Handle");
-    Class rb_cFFIPathHandle = define_class_under<path_handle_t>(rb_mFFI, "PathHandle");
-    Class rb_cFFIStepHandle = define_class_under<step_handle_t>(rb_mFFI, "StepHandle");
-    Class rb_cFFIEdgeHandle = define_class_under<edge_t>(rb_mFFI, "EdgeHandle");
+    // Class rb_cFFIGraph = define_class_under<graph_t>(rb_mFFI, "Graph");
+    // Class rb_cFFIHandle = define_class_under<handle_t>(rb_mFFI, "Handle");
+    // Class rb_cFFIPathHandle = define_class_under<path_handle_t>(rb_mFFI, "PathHandle");
+    // Class rb_cFFIStepHandle = define_class_under<step_handle_t>(rb_mFFI, "StepHandle");
+    // Class rb_cFFIEdgeHandle = define_class_under<edge_t>(rb_mFFI, "EdgeHandle");
 
     rb_mFFI
         .define_singleton_function("odgi_version", &odgi_version)

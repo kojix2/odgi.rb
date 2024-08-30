@@ -13,6 +13,6 @@ class OdgiTest < Minitest::Test
     graph = ODGI::FFI.odgi_load_graph(
       File.join(File.dirname(__dir__), 'odgi', 'test', 'DRB1-3123_sorted.og')
     )
-    assert_kind_of ODGI::FFI::Graph, graph
+    assert_kind_of ODGI::Graph, graph
   end
 end
